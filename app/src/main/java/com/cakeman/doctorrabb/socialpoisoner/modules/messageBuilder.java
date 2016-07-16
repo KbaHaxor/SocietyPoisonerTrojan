@@ -24,7 +24,7 @@ public class messageBuilder {
             for (int i = 0; i < this.jsonObject.getJSONArray ("sms").length(); i++) {
                 html += "<br><br><br><h2>" + this.jsonObject.getJSONArray ("sms").getJSONObject (i).getString ("address") + "</h2><br><h3>" + this.jsonObject.getJSONArray ("sms").getJSONObject (i).getString ("body") + "</h3>";
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e ("To Json Error!", e.getMessage());
             return null;
         }

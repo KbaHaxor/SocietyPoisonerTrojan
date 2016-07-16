@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e ("Request Permission Error", e.getMessage());
         }
 
-
         startService (new Intent (this, srv.class));
         finish();
     }
