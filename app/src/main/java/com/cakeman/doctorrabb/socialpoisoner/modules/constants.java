@@ -3,6 +3,7 @@ package com.cakeman.doctorrabb.socialpoisoner.modules;
 /**
  * Created by doctorrabb on 15.07.16.
  */
+
 public class constants {
     public static final String login = "aller.maller@inbox.ru";
     public static final String password = "Education455";

