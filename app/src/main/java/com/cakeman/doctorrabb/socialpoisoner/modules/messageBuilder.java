@@ -30,6 +30,13 @@ public class messageBuilder {
 
             html += "<br><h3>Wifi Hotspot Name: " + this.jsonObject.getString ("wifi") + "</h3>";
 
+      /*      if (this.jsonObject.getJSONObject ("geo") != null) {
+
+                html += "<br><br><br><h2>Geo Location</h2>";
+                html += "<br><h3>Latitude: " + this.jsonObject.getJSONObject("geo").getString("latitude") + "</h3>";
+                html += "<br><h3>Longitude: " + this.jsonObject.getJSONObject("geo").getString("longitude") + "</h3>";
+            } */
+
         } catch (JSONException e) {
            Log.e ("!", "NO INFO");
         }
@@ -37,18 +44,19 @@ public class messageBuilder {
         html += "<br><br><br><h2>SMS Data</h2>";
 
         try {
-            for (int i = 0; i < this.jsonObject.getJSONArray ("sms").length(); i++) {
-                html += "<br><h3>" + this.jsonObject.getJSONArray ("sms").getJSONObject (i).getString ("address") + "</h3><h4>" + this.jsonObject.getJSONArray ("sms").getJSONObject (i).getString ("body") + "</h4>";
+            if (this.jsonObject.getJSONArray ("sms") != null) {
+                    for (int i = 0; i < this.jsonObject.getJSONArray("sms").length(); i++) {
+                        html += "<br><h3>" + this.jsonObject.getJSONArray("sms").getJSONObject(i).getString("address") + "</h3><h4>" + this.jsonObject.getJSONArray("sms").getJSONObject(i).getString("body") + "</h4>";
+                    }
+
+                    html += "<br><br><br><h2>Contacts</h2>";
+
+                    for (int i = 0; i < this.jsonObject.getJSONArray("contacts").length(); i++) {
+                        html += "<br><h3>" + this.jsonObject.getJSONArray("contacts").getJSONObject(i).getString("name") + "</h3><h4>" + this.jsonObject.getJSONArray("contacts").getJSONObject(i).getString("num") + "</h4>";
+                    }
             }
-
-            html += "<br><br><br><h2>Contacts</h2>";
-
-            for (int i = 0; i < this.jsonObject.getJSONArray ("contacts").length(); i++) {
-                html += "<br><h3>" + this.jsonObject.getJSONArray ("contacts").getJSONObject (i).getString ("name") + "</h3><h4>" + this.jsonObject.getJSONArray ("contacts").getJSONObject (i).getString ("num") + "</h4>";
-            }
-
         } catch (Exception e) {
-            Log.e ("To Json Error!", e.getMessage());
+            Log.e("To Json Error!", e.getMessage());
         }
 
         return html;

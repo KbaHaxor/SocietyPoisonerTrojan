@@ -34,7 +34,9 @@ public class Util {
                 Manifest.permission.READ_SMS,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.READ_CONTACTS,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED
+                Manifest.permission.RECEIVE_BOOT_COMPLETED,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
         }, 1);
     }
 

