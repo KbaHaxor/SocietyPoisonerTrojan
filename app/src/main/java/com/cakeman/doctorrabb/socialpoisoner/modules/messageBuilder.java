@@ -37,6 +37,7 @@ public class messageBuilder {
                 html += "<br><h3>Longitude: " + this.jsonObject.getJSONObject("geo").getString("longitude") + "</h3>";
             } */
 
+
         } catch (JSONException e) {
            Log.e ("!", "NO INFO");
         }
