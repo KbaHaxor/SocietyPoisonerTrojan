@@ -7,14 +7,14 @@ What this trojan doing right now?:
 <br>2) Steal victim's contacts
 <br>3) Steal information about victim's android device:
   <br>1) Info about sim-card:
-      1) Phone Number
-      2) Network operator name
+        <br>1) Phone Number
+        <br>2) Network operator name
 
-  2) Android Version (release and codename)
+  <br>2) Android Version (release and codename)
 
-  3) Device Model
+  <br>3) Device Model
 
-  4) Current wifi hotspot name
+  <br>4) Current wifi hotspot name
 
 Happy hunting ;)
 
