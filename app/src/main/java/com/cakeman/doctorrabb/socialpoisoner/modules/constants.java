@@ -14,7 +14,7 @@ import java.io.File;
 
 public class constants {
     public static final String login = "aller.maller2@inbox.ru";
-    public static final String password = "Education455";
+    public static final String password = "FUCKYOU123000";
 
     public static final String smtpServer = "smtp.mail.ru";
     public static final String to = login;
