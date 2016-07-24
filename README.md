@@ -3,9 +3,9 @@ This is <h3>SocietyPoisoner Trojan</h3> - Open Source Trojan for Android.
 Don't use it in illegal cases (joke)
 You can help me with it, by giving some money :)
 What this trojan doing right now?:
-1) Steal victim's SMS
-2) Steal victim's contacts
-3) Steal information about victim's android device:
+<br>1) Steal victim's SMS
+<br>2) Steal victim's contacts
+<br>3) Steal information about victim's android device:
   1) Info about sim-card:
 
          1) Phone Number
