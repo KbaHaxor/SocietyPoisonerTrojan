@@ -16,6 +16,8 @@ What this trojan doing right now?:
 
   <br>4) Current wifi hotspot name
 
+WARNING! In <b>constants.java</b> change password to your password!
+
 Happy hunting ;)
 
 
